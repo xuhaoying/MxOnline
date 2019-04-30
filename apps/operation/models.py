@@ -18,6 +18,9 @@ class UserAsk(models.Model):
         verbose_name = "用户咨询"
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 class CourseComments(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name="用户")
@@ -28,6 +31,9 @@ class CourseComments(models.Model):
     class Meta:
         verbose_name = "课程评论"
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '{0}({1})'.format(self.user, self.course)
 
 
 class UserFavorite(models.Model):
@@ -41,6 +47,9 @@ class UserFavorite(models.Model):
         verbose_name = "用户收藏"
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return '{0}({1})'.format(self.user, self.fav_id)
+
 
 class UserMessage(models.Model):
     user = models.IntegerField(default=0, verbose_name="接受用户")
@@ -52,6 +61,9 @@ class UserMessage(models.Model):
         verbose_name = "用户消息"
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return '{0}({1})'.format(self.user, self.message)
+
 
 class UserCourse(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name="用户")
@@ -61,3 +73,6 @@ class UserCourse(models.Model):
     class Meta:
         verbose_name = "用户课程"
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '{0}({1})'.format(self.user, self.course)
