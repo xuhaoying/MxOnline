@@ -16,7 +16,15 @@ class CustomBackend(ModelBackend):
         except Exception as e:
             return None
 
-# Create your views here.
+
+class RegisterView(View):
+    def get(self, request):
+        register_form = RegisterForm()
+        return render(request, 'register.html', {
+            'register_form': register_form,
+        })
+
+
 class LoginView(View):
     def get(self, request):
         return render(request, 'login.html', locals())
@@ -34,5 +42,6 @@ class LoginView(View):
                 return render(request, "login.html", {'msg': '用户名或密码错误'})
         else:
             return render(request, "login.html",{'login_form': login_form})
+
 
 
