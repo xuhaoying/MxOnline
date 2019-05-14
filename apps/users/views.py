@@ -7,10 +7,15 @@ from django.views.generic.base import View
 from .models import UserProfile
 from .forms import *
 
+
+# 用户认证
 class CustomBackend(ModelBackend):
+    # 该方法被自动调用, 完成后台逻辑
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
+            # 用户可以使用用户名或者邮箱登录
             user = UserProfile.objects.get(Q(username=username)|Q(email=username))
+            # 把密码加密后对比
             if user.check_password(password):
                 return user  # 验证成功
         except Exception as e:
@@ -34,8 +39,10 @@ class LoginView(View):
         if login_form.is_valid():
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
+            # 向数据库发起验证
             user = authenticate(username=username, password=password)
             if user is not None:
+                # django 登录
                 login(request, user)
                 return render(request, "index.html")
             else:

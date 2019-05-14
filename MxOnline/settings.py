@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# 用户认证
 AUTHENTICATION_BACKENDS = (
     'users.views.CustomBackend',
 )
