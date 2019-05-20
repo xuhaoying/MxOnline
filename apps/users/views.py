@@ -36,7 +36,9 @@ class CustomBackend(ModelBackend):
 
 
 class AciveUserView(View):
+    # 用户激活
     def get(self, request, active_code):
+        # 查询记录是否存在
         all_records = EmailVerifyRecord.objects.filter(code=active_code)
         if all_records:
             for record in all_records:
