@@ -27,7 +27,7 @@ SECRET_KEY = '8w^rh!fqd3&5os-bj_m64hw+cr2^nmz0tx^j%2-*t(lw6+jbdc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'captcha',
+    'pure_pagination',
+    'DjangoUeditor',
 ]
 
 AUTH_USER_MODEL = 'users.UserProfile'
@@ -64,6 +66,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+from django.forms.fields import Field
+
 ROOT_URLCONF = 'MxOnline.urls'
 
 TEMPLATES = [
@@ -72,11 +76,15 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
+            # django 上下文处理器
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'django.core.context_processors.media',eMdia
+                # 为了使 {{ MEDIA_URL }} 可用
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -136,6 +144,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+# 静态文件
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
@@ -149,3 +158,10 @@ EMAIL_HOST_POSSWORD = "suijishuzi"
 EMAIL_USE_TLS = False  # 默认
 EMAIL_FROM = "suijishuzi888@163.com"  # 指明发件人,和user保持一致
 
+
+# 上传文件
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')

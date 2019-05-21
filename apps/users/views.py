@@ -129,11 +129,14 @@ class ForgetPwdView(View):
 
 
 class ResetView(View):
+    # 重置密码
+    # 必须传递 active_code 参数
     def get(self, request, active_code):
         all_records = EmailVerifyRecord.objects.filter(code=active_code)
         if all_records:
             for record in all_records:
                 email = record.email
+                # 给前端传递email 确认要修改密码的用户
                 return render(request, "password_reset.html", {"email":email})
         else:
             return render(request, "active_fail.html")
